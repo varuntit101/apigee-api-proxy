@@ -23,10 +23,26 @@ jobs:
       - name: 📦 Install Newman
         run: npm install -g newman newman-reporter-html
 
+      - name: 🛠️ Create Postman environment from secrets
+        env:
+          BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
+          TOKEN_URL: ${{ secrets.TOKEN_URL }}
+          API_URL: ${{ secrets.API_URL }}
+        run: |
+          echo "{
+            \"id\": \"apigee-env\",
+            \"name\": \"apigee-env\",
+            \"values\": [
+              {\"key\": \"basic_auth\", \"value\": \"${BASIC_AUTH}\", \"enabled\": true},
+              {\"key\": \"token_url\", \"value\": \"${TOKEN_URL}\", \"enabled\": true},
+              {\"key\": \"api_url\", \"value\": \"${API_URL}\", \"enabled\": true}
+            ]
+          }" > apigee-env.json
+
       - name: 🧪 Run Newman collection
         run: |
           newman run tests/apigee-oauth-test.postman_collection.json \
-            -e apigee-env.postman_environment.json \
+            -e apigee-env.json \
             --reporters cli,html \
             --reporter-html-export newman-report.html
 
