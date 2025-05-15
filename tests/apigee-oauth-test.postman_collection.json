@@ -27,10 +27,7 @@
             }
           ]
         },
-        "url": {
-          "raw": "{{token_url}}",
-          "host": ["{{token_url}}"]
-        }
+        "url": "{{token_url}}"
       },
       "response": [],
       "event": [
@@ -60,10 +57,7 @@
             "value": "Bearer {{access_token}}"
           }
         ],
-        "url": {
-          "raw": "{{api_url}}",
-          "host": ["{{api_url}}"]
-        }
+        "url": "{{api_url}}"
       },
       "response": [],
       "event": [
