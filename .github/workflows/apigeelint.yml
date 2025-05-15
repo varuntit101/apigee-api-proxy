@@ -1,0 +1,26 @@
+name: Apigee Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install apigeelint
+        run: npm install -g apigeelint
+
+      - name: Run apigeelint
+        run: apigeelint -s ./apiproxy
